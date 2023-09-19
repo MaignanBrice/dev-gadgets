@@ -11,13 +11,13 @@ window.addEventListener('load', event => {
 // //////////////////EventListener Mobile BTN //////////////////
 
 // -------Going to the next IMG
-document.querySelector('.pictures-next').addEventListener('click', event => {
+document.querySelector('.pictures-next').addEventListener('click', () => {
     displayNextImg();
 });
 
 
 // -------Coming back to the previous IMG.
-document.querySelector('.pictures-prev').addEventListener('click', event => {
+document.querySelector('.pictures-prev').addEventListener('click', () => {
     displayPrevImg();
 });
 
@@ -31,22 +31,17 @@ document.querySelector('.similar').addEventListener('click', event => {
 
         toggleMobileHiddenClass(list[similarCnt - 1]);
         addLeftRemoveRight(list[similarCnt - 1]);
-
         //Animate
         animationTimeOutPrev(list[similarCnt])
-
         document.querySelector('.similar-btn-next').classList.remove('hidden')
 
     } else if (similarCnt === 1) {
 
         toggleMobileHiddenClass(list[similarCnt - 1]);
         addLeftRemoveRight(list[similarCnt - 1])
-
         //Animate
         animationTimeOutPrev(list[similarCnt])
-
         event.target.classList.toggle('hidden');
-
 
     } return;
 });
@@ -59,7 +54,6 @@ document.querySelector('.similar').addEventListener('click', event => {
     if (similarCnt === 2) {
         toggleMobileHiddenClass(list[similarCnt + 1]);
         addRightRemoveLeft(list[similarCnt + 1])
-
         // Animate
         animationTimeOutNext(list[similarCnt]);
         event.target.classList.add('hidden');
@@ -67,7 +61,6 @@ document.querySelector('.similar').addEventListener('click', event => {
     } else if (similarCnt >= 0 && similarCnt < 2) {
         toggleMobileHiddenClass(list[similarCnt + 1]);
         addRightRemoveLeft(list[similarCnt + 1]);
-
         //Animate
         animationTimeOutNext(list[similarCnt]);
         document.querySelector('.similar-btn-prev').classList.remove('hidden');
@@ -99,10 +92,7 @@ document.querySelector('.page-txt').addEventListener('click', event => {
     displayAccordion(event.target);
 });
 
-
-
 ////////////////// Functions //////////////////
-
 
 // -------set data ID for all img
 
@@ -149,20 +139,15 @@ function displayAccordion(node) {
 
 // -------Local Store the accordion state
 function saveAccordionState() {
-    let advantagesClasses = document.querySelector('.product-advantages').classList;
-    localStorage.setItem('advantages', advantagesClasses.toString())
-    let featuresClasses = document.querySelector('.product-car').classList;
-    localStorage.setItem('features', featuresClasses.toString())
+    localStorage.setItem('advantages', document.querySelector('.product-advantages').classList.toString())
+    localStorage.setItem('features', document.querySelector('.product-car').classList.toString())
 };
 
 // ------- Load Accordion state from Local Storage
 function setAccordionStateOnLoad() {
     if (localStorage.getItem('advantages') === null && localStorage.getItem('features') === null) return;
-    let advantagesClasses = (localStorage.getItem('advantages')).split(' ');
-    let featuresClasses = localStorage.getItem('features').split(' ');
-
-    advantagesClasses.map(item => document.querySelector('.product-advantages').classList.add(item));
-    featuresClasses.map(item => document.querySelector('.product-car').classList.add(item));
+    localStorage.getItem('advantages').split(' ').map(item => document.querySelector('.product-advantages').classList.add(item));
+    localStorage.getItem('features').split(' ').map(item => document.querySelector('.product-car').classList.add(item));
 };
 
 // ------- Toggle 'mobile-hidden' class
@@ -185,9 +170,7 @@ function addRightRemoveLeft(node) {
 // ------- Animate the movement
 
 function animationTimeOutNext(node) {
-
     node.classList.add('slide-out-right');
-
     setTimeout(() => {
         toggleMobileHiddenClass(node);
         node.classList.remove('slide-out-right');
@@ -196,9 +179,7 @@ function animationTimeOutNext(node) {
 };
 
 function animationTimeOutPrev(node) {
-
     node.classList.add('slide-out-left');
-
     setTimeout(() => {
         toggleMobileHiddenClass(node);
         node.classList.remove('slide-out-left');
