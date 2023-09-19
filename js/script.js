@@ -1,9 +1,6 @@
-let imgID = 1; // IMG src counter.
-let similarCnt = 0; // Similar Mobile Counter
-
 //////////////////// ON LOAD - EventListener /////////////////
 
-window.addEventListener('load', event => {
+window.addEventListener('load', () => {
     setAccordionStateOnLoad(); // Load accordion state
     setImgId(document.querySelectorAll('.thumbs-img')); // Create thumbnail img IDs
 });
@@ -38,13 +35,15 @@ document.querySelector('.similar').addEventListener('click', event => {
 
 // ------- Next BTN Similar Section
 
+let similarCnt = 0; // Similar Mobile Counter
+
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-next')) return;
     let list = document.querySelectorAll('.similar-itm');
 
     if (similarCnt === 2) event.target.classList.add('hidden');
     else if (similarCnt >= 0 && similarCnt < 2) document.querySelector('.similar-btn-prev').classList.remove('hidden');
-    
+
     animationTimeOutNext(list[similarCnt]);
     toggleMobileHiddenClass(list[similarCnt + 1]);
     addRightRemoveLeft(list[similarCnt + 1]);
@@ -87,6 +86,7 @@ function setImgId(nodelist) {
 };
 
 // -------Display next img
+let imgID = 1; // IMG src counter.
 
 function displayNextImg() {
     imgID++;
