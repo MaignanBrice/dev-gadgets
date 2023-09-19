@@ -204,6 +204,10 @@ body {
     font-weight: bold;
 }
 
+.hidden {
+    display: none !important;
+}
+
 @media screen and (min-width: 768px) {
     .product-subttl {
         text-align: center;
@@ -271,9 +275,8 @@ body {
     font-weight: bold;
     text-transform: uppercase;
     background-color: var(--background-dark);
-    cursor: pointer;
+    cursor: not-allowed;
     color: #fff;
-    /* transition: background var(--transition-duration) var(--transition-function); */
 }
 
 .add-cta:hover {
