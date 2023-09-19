@@ -486,6 +486,13 @@ body {
     .mobile-hidden {
         display: block;
     }
+
+    .slide-in-right,
+    .slide-in-left,
+    .slide-out-left,
+    .slide-out-right {
+        animation: none;
+    }
 }
 
 /* REINSURANCE  */
