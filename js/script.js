@@ -1,15 +1,13 @@
-
 let imgID = 1; // IMG src counter.
+let similarCnt = 0;
 
-
-// ON LOAD - EventListener
+//////////////////// ON LOAD - EventListener /////////////////
 
 window.addEventListener('load', event => {
     setAccordionStateOnLoad();
 })
 
-
-// EventListener Mobile BTN
+// //////////////////EventListener Mobile BTN //////////////////
 
 // -------Going to the next IMG
 document.querySelector('.pictures-next').addEventListener('click', event => {
@@ -25,7 +23,57 @@ document.querySelector('.pictures-prev').addEventListener('click', event => {
     document.querySelector('.pictures-img').src = `/img/canard-jaune-${imgID}-l.png`;
 })
 
-//  EventListener Desktop
+// ------- Previous BTN Similar Section
+
+document.querySelector('.similar').addEventListener('click', event => {
+    if (!event.target.classList.contains('similar-btn-prev')) return;
+
+    let list = document.querySelectorAll('.similar-itm');
+
+    if (similarCnt <= 3 && similarCnt > 1) {
+        list[similarCnt].classList.toggle('mobile-hidden');
+        list[similarCnt - 1].classList.toggle('mobile-hidden');
+        list[similarCnt - 1].classList.add('slide-right');
+        list[similarCnt - 1].classList.remove('slide-left');
+        similarCnt--;
+        document.querySelector('.similar-btn-next').classList.remove('hidden')
+    } else if (similarCnt === 1) {
+        list[similarCnt].classList.toggle('mobile-hidden');
+        list[similarCnt - 1].classList.toggle('mobile-hidden');
+        list[similarCnt - 1].classList.add('slide-right');
+        list[similarCnt - 1].classList.remove('slide-left');
+
+        similarCnt--;
+        event.target.classList.toggle('hidden');
+    }
+    return;
+})
+
+// ------- Next BTN Similar Section
+
+document.querySelector('.similar').addEventListener('click', event => {
+    if (!event.target.classList.contains('similar-btn-next')) return;
+
+    let list = document.querySelectorAll('.similar-itm');
+
+    if (similarCnt === 2) {
+        list[similarCnt].classList.toggle('mobile-hidden');
+        list[similarCnt + 1].classList.toggle('mobile-hidden');
+        list[similarCnt + 1].classList.remove('slide-right');
+        list[similarCnt + 1].classList.add('slide-left')
+        similarCnt++;
+        event.target.classList.add('hidden')
+    } else if (similarCnt >= 0 && similarCnt < 2) {
+        list[similarCnt].classList.toggle('mobile-hidden');
+        list[similarCnt + 1].classList.toggle('mobile-hidden');
+        list[similarCnt + 1].classList.remove('slide-right');
+        list[similarCnt + 1].classList.add('slide-left')
+        similarCnt++;
+        document.querySelector('.similar-btn-prev').classList.remove('hidden')
+    } return;
+});
+
+//  ////////////////// EventListener Desktop //////////////////
 
 // -------Img hovering
 document.querySelector('.thumbs').addEventListener('mouseover', event => {
@@ -51,7 +99,7 @@ document.querySelector('.page-txt').addEventListener('click', event => {
 
 
 
-// Functions
+////////////////// Functions //////////////////
 
 // -------Display cart item number from 1 to 99+ 
 function addItemToCart() {
@@ -87,3 +135,8 @@ function setAccordionStateOnLoad() {
     advantagesClasses.map(item => document.querySelector('.product-advantages').classList.add(item));
     featuresClasses.map(item => document.querySelector('.product-car').classList.add(item));
 }
+
+function toggleMobileHiddenClass(node) {
+    node.classList.toggle('mobile-hidden');
+}
+

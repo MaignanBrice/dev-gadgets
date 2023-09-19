@@ -353,6 +353,14 @@ body {
     display: none;
 }
 
+.slide-left {
+    animation: slide-left 0.5s forwards;
+}
+
+.slide-right {
+    animation: slide-right 0.5s forwards;
+}
+
 .similar-btn-mobile {
     position: absolute;
     bottom: calc(40% - 1.5rem);
@@ -553,3 +561,24 @@ body {
 .legal-lnk {
     color: #fff;
 }
+
+
+/* KEYFRAMES ANIMATIONS */
+
+@keyframes slide-left {
+    0% {
+      -webkit-transform: translateX(100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
+
+@keyframes slide-right {
+    0% {
+      -webkit-transform: translateX(-100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
