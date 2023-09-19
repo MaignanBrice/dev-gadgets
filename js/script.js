@@ -27,23 +27,13 @@ document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-prev')) return;
     let list = document.querySelectorAll('.similar-itm');
 
-    if (similarCnt <= 3 && similarCnt > 1) {
+    if (similarCnt <= 3 && similarCnt > 1) document.querySelector('.similar-btn-next').classList.remove('hidden')
+    else if (similarCnt === 1) event.target.classList.toggle('hidden');
 
-        toggleMobileHiddenClass(list[similarCnt - 1]);
-        addLeftRemoveRight(list[similarCnt - 1]);
-        //Animate
-        animationTimeOutPrev(list[similarCnt])
-        document.querySelector('.similar-btn-next').classList.remove('hidden')
-
-    } else if (similarCnt === 1) {
-
-        toggleMobileHiddenClass(list[similarCnt - 1]);
-        addLeftRemoveRight(list[similarCnt - 1])
-        //Animate
-        animationTimeOutPrev(list[similarCnt])
-        event.target.classList.toggle('hidden');
-
-    } return;
+    animationTimeOutPrev(list[similarCnt])
+    toggleMobileHiddenClass(list[similarCnt - 1]);
+    addLeftRemoveRight(list[similarCnt - 1]);
+    return;
 });
 
 // ------- Next BTN Similar Section
@@ -51,20 +41,14 @@ document.querySelector('.similar').addEventListener('click', event => {
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-next')) return;
     let list = document.querySelectorAll('.similar-itm');
-    if (similarCnt === 2) {
-        toggleMobileHiddenClass(list[similarCnt + 1]);
-        addRightRemoveLeft(list[similarCnt + 1])
-        // Animate
-        animationTimeOutNext(list[similarCnt]);
-        event.target.classList.add('hidden');
 
-    } else if (similarCnt >= 0 && similarCnt < 2) {
-        toggleMobileHiddenClass(list[similarCnt + 1]);
-        addRightRemoveLeft(list[similarCnt + 1]);
-        //Animate
-        animationTimeOutNext(list[similarCnt]);
-        document.querySelector('.similar-btn-prev').classList.remove('hidden');
-    } return;
+    if (similarCnt === 2) event.target.classList.add('hidden');
+    else if (similarCnt >= 0 && similarCnt < 2) document.querySelector('.similar-btn-prev').classList.remove('hidden');
+    
+    animationTimeOutNext(list[similarCnt]);
+    toggleMobileHiddenClass(list[similarCnt + 1]);
+    addRightRemoveLeft(list[similarCnt + 1]);
+    return;
 });
 
 //  ////////////////// EventListener Desktop //////////////////
