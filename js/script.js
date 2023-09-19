@@ -12,16 +12,13 @@ window.addEventListener('load', event => {
 
 // -------Going to the next IMG
 document.querySelector('.pictures-next').addEventListener('click', event => {
-    imgID++;
-    if (imgID === 6) imgID = 1;
-    document.querySelector('.pictures-img').src = `/img/canard-jaune-${imgID}-l.png`;
+    displayNextImg();
 });
+
 
 // -------Coming back to the previous IMG.
 document.querySelector('.pictures-prev').addEventListener('click', event => {
-    imgID--;
-    if (imgID === 0) imgID = 5;
-    document.querySelector('.pictures-img').src = `/img/canard-jaune-${imgID}-l.png`;
+    displayPrevImg();
 });
 
 // ------- Previous BTN Similar Section
@@ -59,22 +56,22 @@ document.querySelector('.similar').addEventListener('click', event => {
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-next')) return;
     let list = document.querySelectorAll('.similar-itm');
-        if (similarCnt === 2) {
-            toggleMobileHiddenClass(list[similarCnt + 1]);
-            addRightRemoveLeft(list[similarCnt + 1])
+    if (similarCnt === 2) {
+        toggleMobileHiddenClass(list[similarCnt + 1]);
+        addRightRemoveLeft(list[similarCnt + 1])
 
-            // Animate
-            animationTimeOutNext(list[similarCnt]);
-            event.target.classList.add('hidden');
+        // Animate
+        animationTimeOutNext(list[similarCnt]);
+        event.target.classList.add('hidden');
 
-        } else if (similarCnt >= 0 && similarCnt < 2) {
-            toggleMobileHiddenClass(list[similarCnt + 1]);
-            addRightRemoveLeft(list[similarCnt + 1]);
+    } else if (similarCnt >= 0 && similarCnt < 2) {
+        toggleMobileHiddenClass(list[similarCnt + 1]);
+        addRightRemoveLeft(list[similarCnt + 1]);
 
-            //Animate
-            animationTimeOutNext(list[similarCnt]);
-            document.querySelector('.similar-btn-prev').classList.remove('hidden');
-        } return;
+        //Animate
+        animationTimeOutNext(list[similarCnt]);
+        document.querySelector('.similar-btn-prev').classList.remove('hidden');
+    } return;
 });
 
 //  ////////////////// EventListener Desktop //////////////////
@@ -106,10 +103,29 @@ document.querySelector('.page-txt').addEventListener('click', event => {
 
 ////////////////// Functions //////////////////
 
+
+// -------set data ID for all img
+
 function setImgId(nodelist) {
     nodelist.forEach((node, index) => {
         node.dataset.imgId = index + 1;
     });
+};
+
+// -------Display next img
+
+function displayNextImg() {
+    imgID++;
+    if (imgID === document.querySelectorAll('.thumbs-img').length + 1) imgID = 1;
+    document.querySelector('.pictures-img').src = `/img/canard-jaune-${imgID}-l.png`;
+};
+
+// -------Display previous img
+
+function displayPrevImg() {
+    imgID--;
+    if (imgID === 0) imgID = document.querySelectorAll('.thumbs-img').length;
+    document.querySelector('.pictures-img').src = `/img/canard-jaune-${imgID}-l.png`;
 };
 
 // -------Display cart item number from 1 to 99+ 
