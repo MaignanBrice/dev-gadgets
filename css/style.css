@@ -260,6 +260,22 @@ body {
     color: #fff;
     transition: background var(--transition-duration) var(--transition-function);
 }
+.add-cta-clicked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 3rem;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--background-dark);
+    cursor: pointer;
+    color: #fff;
+    /* transition: background var(--transition-duration) var(--transition-function); */
+}
+
 .add-cta:hover {
     background-color: var(--background-dark)
 }
