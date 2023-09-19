@@ -31,23 +31,35 @@ document.querySelector('.similar').addEventListener('click', event => {
     let list = document.querySelectorAll('.similar-itm');
 
     if (similarCnt <= 3 && similarCnt > 1) {
-        list[similarCnt].classList.toggle('mobile-hidden');
-        list[similarCnt - 1].classList.toggle('mobile-hidden');
-        list[similarCnt - 1].classList.add('slide-right');
-        list[similarCnt - 1].classList.remove('slide-left');
-        similarCnt--;
-        document.querySelector('.similar-btn-next').classList.remove('hidden')
-    } else if (similarCnt === 1) {
-        list[similarCnt].classList.toggle('mobile-hidden');
-        list[similarCnt - 1].classList.toggle('mobile-hidden');
-        list[similarCnt - 1].classList.add('slide-right');
-        list[similarCnt - 1].classList.remove('slide-left');
 
-        similarCnt--;
-        event.target.classList.toggle('hidden');
+        toggleMobileHiddenClass(list[similarCnt - 1]);
+        addLeftRemoveRight(list[similarCnt - 1])
+        list[similarCnt].classList.add('slide-out-left');
+
+        setTimeout(() => {
+            toggleMobileHiddenClass(list[similarCnt]);
+            list[similarCnt].classList.remove('slide-out-left');
+            similarCnt--;
+        }, 1000);
+
+        document.querySelector('.similar-btn-next').classList.remove('hidden')
+
+    } else if (similarCnt === 1) {
+
+        toggleMobileHiddenClass(list[similarCnt - 1]);
+        addLeftRemoveRight(list[similarCnt - 1])
+        list[similarCnt].classList.add('slide-out-left');
+
+        setTimeout(() => {
+            toggleMobileHiddenClass(list[similarCnt]);
+            list[similarCnt].classList.remove('slide-out-left');
+            similarCnt--;
+            event.target.classList.toggle('hidden');
+        }, 1000)
+
     }
     return;
-})
+});
 
 // ------- Next BTN Similar Section
 
@@ -56,20 +68,33 @@ document.querySelector('.similar').addEventListener('click', event => {
 
     let list = document.querySelectorAll('.similar-itm');
 
+
     if (similarCnt === 2) {
-        list[similarCnt].classList.toggle('mobile-hidden');
-        list[similarCnt + 1].classList.toggle('mobile-hidden');
-        list[similarCnt + 1].classList.remove('slide-right');
-        list[similarCnt + 1].classList.add('slide-left')
-        similarCnt++;
-        event.target.classList.add('hidden')
+
+        toggleMobileHiddenClass(list[similarCnt + 1]);
+        addRightRemoveLeft(list[similarCnt + 1])
+        list[similarCnt].classList.add('slide-out-right');
+
+        setTimeout(() => {
+            toggleMobileHiddenClass(list[similarCnt]);
+            list[similarCnt].classList.remove('slide-out-right');
+            similarCnt++;
+            event.target.classList.add('hidden');
+        }, 1000);
+
     } else if (similarCnt >= 0 && similarCnt < 2) {
-        list[similarCnt].classList.toggle('mobile-hidden');
-        list[similarCnt + 1].classList.toggle('mobile-hidden');
-        list[similarCnt + 1].classList.remove('slide-right');
-        list[similarCnt + 1].classList.add('slide-left')
-        similarCnt++;
-        document.querySelector('.similar-btn-prev').classList.remove('hidden')
+        toggleMobileHiddenClass(list[similarCnt + 1]);
+        addRightRemoveLeft(list[similarCnt + 1]);
+        list[similarCnt].classList.add('slide-out-right');
+        setTimeout(() => {
+            toggleMobileHiddenClass(list[similarCnt]);
+            list[similarCnt].classList.remove('slide-out-right');
+            similarCnt++;
+        }, 1000);
+
+
+        document.querySelector('.similar-btn-prev').classList.remove('hidden');
+
     } return;
 });
 
@@ -79,6 +104,7 @@ document.querySelector('.similar').addEventListener('click', event => {
 document.querySelector('.thumbs').addEventListener('mouseover', event => {
     if (!event.target.classList.contains('thumbs-img')) return;
     document.querySelector('.pictures-img').src = event.target.dataset.imgLargeSrc;
+    imgID = event.target.id;
 });
 
 // -------Clic on ADD button
@@ -129,14 +155,31 @@ function saveAccordionState() {
 
 // ------- Load Accordion state from Local Storage
 function setAccordionStateOnLoad() {
+    if (localStorage.getItem('advantages') === null && localStorage.getItem('features') === null) return;
+    
     let advantagesClasses = (localStorage.getItem('advantages')).split(' ');
     let featuresClasses = localStorage.getItem('features').split(' ');
 
     advantagesClasses.map(item => document.querySelector('.product-advantages').classList.add(item));
     featuresClasses.map(item => document.querySelector('.product-car').classList.add(item));
+
 }
 
+// ------- Toggle 'mobile-hidden' class
 function toggleMobileHiddenClass(node) {
     node.classList.toggle('mobile-hidden');
 }
+
+// ------- Add 'slide-in-left' Remove 'slide-in-right'
+function addLeftRemoveRight(node) {
+    node.classList.add('slide-in-left');
+    node.classList.remove('slide-in-right');
+}
+
+// ------- Remove 'slide-in-left' Add 'slide-in-right'
+function addRightRemoveLeft(node) {
+    node.classList.remove('slide-in-left');
+    node.classList.add('slide-in-right');
+}
+
 
