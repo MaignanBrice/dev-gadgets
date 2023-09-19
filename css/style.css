@@ -379,19 +379,19 @@ body {
 }
 
 .slide-in-right {
-    animation: slide-in-right 1s forwards;
+    animation: slide-in-right 0.5s forwards;
 }
 
 .slide-in-left {
-    animation: slide-in-left 1s forwards;
+    animation: slide-in-left 0.5s forwards;
 }
 
 .slide-out-left {
-    animation: slide-out-left 1s forwards;
+    animation: slide-out-left 0.5s forwards;
 }
 
 .slide-out-right {
-    animation: slide-out-right 1s forwards;
+    animation: slide-out-right 0.5s forwards;
 }
 
 .similar-btn-mobile {

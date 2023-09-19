@@ -28,7 +28,6 @@ document.querySelector('.pictures-prev').addEventListener('click', event => {
 
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-prev')) return;
-
     let list = document.querySelectorAll('.similar-itm');
 
     if (similarCnt <= 3 && similarCnt > 1) {
@@ -60,23 +59,22 @@ document.querySelector('.similar').addEventListener('click', event => {
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-next')) return;
     let list = document.querySelectorAll('.similar-itm');
+        if (similarCnt === 2) {
+            toggleMobileHiddenClass(list[similarCnt + 1]);
+            addRightRemoveLeft(list[similarCnt + 1])
 
-    if (similarCnt === 2) {
-        toggleMobileHiddenClass(list[similarCnt + 1]);
-        addRightRemoveLeft(list[similarCnt + 1])
+            // Animate
+            animationTimeOutNext(list[similarCnt]);
+            event.target.classList.add('hidden');
 
-        // Animate
-        animationTimeOutNext(list[similarCnt]);
-        event.target.classList.add('hidden');
+        } else if (similarCnt >= 0 && similarCnt < 2) {
+            toggleMobileHiddenClass(list[similarCnt + 1]);
+            addRightRemoveLeft(list[similarCnt + 1]);
 
-    } else if (similarCnt >= 0 && similarCnt < 2) {
-        toggleMobileHiddenClass(list[similarCnt + 1]);
-        addRightRemoveLeft(list[similarCnt + 1]);
-
-        //Animate
-        animationTimeOutNext(list[similarCnt]);
-        document.querySelector('.similar-btn-prev').classList.remove('hidden');
-    } return;
+            //Animate
+            animationTimeOutNext(list[similarCnt]);
+            document.querySelector('.similar-btn-prev').classList.remove('hidden');
+        } return;
 });
 
 //  ////////////////// EventListener Desktop //////////////////
@@ -178,7 +176,7 @@ function animationTimeOutNext(node) {
         toggleMobileHiddenClass(node);
         node.classList.remove('slide-out-right');
         similarCnt++;
-    }, 1000);
+    }, 500);
 };
 
 function animationTimeOutPrev(node) {
@@ -189,5 +187,5 @@ function animationTimeOutPrev(node) {
         toggleMobileHiddenClass(node);
         node.classList.remove('slide-out-left');
         similarCnt--;
-    }, 1000);
+    }, 500);
 }
