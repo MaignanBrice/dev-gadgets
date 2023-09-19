@@ -34,14 +34,10 @@ document.querySelector('.similar').addEventListener('click', event => {
     if (similarCnt <= 3 && similarCnt > 1) {
 
         toggleMobileHiddenClass(list[similarCnt - 1]);
-        addLeftRemoveRight(list[similarCnt - 1])
-        list[similarCnt].classList.add('slide-out-left');
+        addLeftRemoveRight(list[similarCnt - 1]);
 
-        setTimeout(() => {
-            toggleMobileHiddenClass(list[similarCnt]);
-            list[similarCnt].classList.remove('slide-out-left');
-            similarCnt--;
-        }, 1000);
+        //Animate
+        animationTimeOutPrev(list[similarCnt])
 
         document.querySelector('.similar-btn-next').classList.remove('hidden')
 
@@ -49,14 +45,13 @@ document.querySelector('.similar').addEventListener('click', event => {
 
         toggleMobileHiddenClass(list[similarCnt - 1]);
         addLeftRemoveRight(list[similarCnt - 1])
-        list[similarCnt].classList.add('slide-out-left');
 
-        setTimeout(() => {
-            toggleMobileHiddenClass(list[similarCnt]);
-            list[similarCnt].classList.remove('slide-out-left');
-            similarCnt--;
-            event.target.classList.toggle('hidden');
-        }, 1000);
+        //Animate
+        animationTimeOutPrev(list[similarCnt])
+
+        event.target.classList.toggle('hidden');
+
+
     } return;
 });
 
@@ -64,33 +59,22 @@ document.querySelector('.similar').addEventListener('click', event => {
 
 document.querySelector('.similar').addEventListener('click', event => {
     if (!event.target.classList.contains('similar-btn-next')) return;
-
     let list = document.querySelectorAll('.similar-itm');
 
     if (similarCnt === 2) {
-
         toggleMobileHiddenClass(list[similarCnt + 1]);
         addRightRemoveLeft(list[similarCnt + 1])
-        list[similarCnt].classList.add('slide-out-right');
 
-        setTimeout(() => {
-            toggleMobileHiddenClass(list[similarCnt]);
-            list[similarCnt].classList.remove('slide-out-right');
-            similarCnt++;
-            event.target.classList.add('hidden');
-        }, 1000);
+        // Animate
+        animationTimeOutNext(list[similarCnt]);
+        event.target.classList.add('hidden');
 
     } else if (similarCnt >= 0 && similarCnt < 2) {
         toggleMobileHiddenClass(list[similarCnt + 1]);
         addRightRemoveLeft(list[similarCnt + 1]);
-        list[similarCnt].classList.add('slide-out-right');
 
-        setTimeout(() => {
-            toggleMobileHiddenClass(list[similarCnt]);
-            list[similarCnt].classList.remove('slide-out-right');
-            similarCnt++;
-        }, 1000);
-
+        //Animate
+        animationTimeOutNext(list[similarCnt]);
         document.querySelector('.similar-btn-prev').classList.remove('hidden');
     } return;
 });
@@ -184,4 +168,26 @@ function addRightRemoveLeft(node) {
     node.classList.add('slide-in-right');
 };
 
+// ------- Animate the movement
 
+function animationTimeOutNext(node) {
+
+    node.classList.add('slide-out-right');
+
+    setTimeout(() => {
+        toggleMobileHiddenClass(node);
+        node.classList.remove('slide-out-right');
+        similarCnt++;
+    }, 1000);
+};
+
+function animationTimeOutPrev(node) {
+
+    node.classList.add('slide-out-left');
+
+    setTimeout(() => {
+        toggleMobileHiddenClass(node);
+        node.classList.remove('slide-out-left');
+        similarCnt--;
+    }, 1000);
+}
