@@ -4,7 +4,8 @@ let similarCnt = 0; // Similar Mobile Counter
 //////////////////// ON LOAD - EventListener /////////////////
 
 window.addEventListener('load', event => {
-    setAccordionStateOnLoad();
+    setAccordionStateOnLoad(); // Load accordion state
+    setImgId(document.querySelectorAll('.thumbs-img')); // Create thumbnail img IDs
 });
 
 // //////////////////EventListener Mobile BTN //////////////////
@@ -83,6 +84,7 @@ document.querySelector('.similar').addEventListener('click', event => {
         toggleMobileHiddenClass(list[similarCnt + 1]);
         addRightRemoveLeft(list[similarCnt + 1]);
         list[similarCnt].classList.add('slide-out-right');
+
         setTimeout(() => {
             toggleMobileHiddenClass(list[similarCnt]);
             list[similarCnt].classList.remove('slide-out-right');
@@ -99,7 +101,7 @@ document.querySelector('.similar').addEventListener('click', event => {
 document.querySelector('.thumbs').addEventListener('mouseover', event => {
     if (!event.target.classList.contains('thumbs-img')) return;
     document.querySelector('.pictures-img').src = event.target.dataset.imgLargeSrc;
-    imgID = event.target.id;
+    imgID = event.target.dataset.imgId;
 });
 
 // -------Clic on ADD button
@@ -121,6 +123,12 @@ document.querySelector('.page-txt').addEventListener('click', event => {
 
 
 ////////////////// Functions //////////////////
+
+function setImgId(nodelist) {
+    nodelist.forEach((node, index) => {
+        node.dataset.imgId = index + 1;
+    });
+};
 
 // -------Display cart item number from 1 to 99+ 
 function addItemToCart() {
